@@ -1,7 +1,8 @@
-*#
-*.class
-*.pyc
-*.pyo
-.db
+*.db
 .project
+.directory
+.settings
 .~*
+*#
+
+
