@@ -253,7 +253,15 @@ App.rollo.createWindow2 = function(item){
         rollo_mindestHelligkeit: 'INT',
         rollo_wzOstOffenBisSchlafen: 'BOOL',
         rollo_wzSuedOffenBisSchlafen: 'BOOL',
-        rollo_wzOstSuedZuAussenTemp: 'INT1DP'
+        rollo_wzOstSuedZuAussenTemp: 'INT1DP',
+        rollo_helligkeitVerschattungEin: 'INT',
+        rollo_helligkeitVerschattungAus: 'INT',
+        rollo_zeitVerschattungEin: 'TIME.#m',
+        rollo_zeitVerschattungAus: 'TIME.#m',
+        rollo_aussenTempVerschattung: 'INT1DP',
+        reserve: 'INT',
+        reserve: 'INT',
+        reserve: 'INT'
     };
     
     App.rollo[label].data = {};
@@ -342,6 +350,26 @@ App.rollo.createWindow2 = function(item){
         tip8: Ext.create('Ext.tip.ToolTip', {
             target: label + '_wzOstSuedZuAussenTemp',
             html: 'Außentemperatur, unter der die Rollos Ost und Süd im WZ bei Nachtbetrieb auf jeden Fall geschlossen werden.'
+        }),
+        tip9: Ext.create('Ext.tip.ToolTip', {
+            target: label + '_helligkeitVerschattungEin',
+            html: 'Helligkeitsschwelle, über der Verschattung aktiviert wird.'
+        }),
+        tip10: Ext.create('Ext.tip.ToolTip', {
+            target: label + '_helligkeitVerschattungAus',
+            html: 'Helligkeitsschwelle, unter der Verschattung deaktiviert wird.'
+        }),
+        tip11: Ext.create('Ext.tip.ToolTip', {
+            target: label + '_zeitVerschattungEin',
+            html: 'Zeit in Minuten, für welche die Helligkeitsschwelle überschritten werden muss, damit Verschattung aktiviert wird.'
+        }),
+        tip12: Ext.create('Ext.tip.ToolTip', {
+            target: label + '_zeitVerschattungAus',
+            html: 'Zeit in Minuten, für welche die Helligkeitsschwelle unterschritten werden muss, damit Verschattung deaktiviert wird.'
+        }),
+        tip13: Ext.create('Ext.tip.ToolTip', {
+            target: label + '_aussenTempVerschattung',
+            html: 'Minimale Außentemperatur für die Freigabe der Verschattung.'
         })
     };
     
@@ -366,7 +394,7 @@ App.rollo.createFormPanel2 = function(label) {
         items: [{
             xtype: 'fieldset',
             id: label + '_fieldset',
-            title: 'Sonnenstandshöhe',
+            title: 'Nachtbetrieb',
             items: [{
                 xtype: 'numberfield',
                 name: 'rollo_winkelZuSensor',
@@ -399,25 +427,15 @@ App.rollo.createFormPanel2 = function(label) {
                 value: 0,
                 minValue: -15,
                 maxValue: 15
-            }]  
-        },{
-            xtype: 'fieldset',
-            id: label + '_fieldset2',
-            title: 'Helligkeit',
-            items: [{
+            },{
                 xtype: 'numberfield',
                 name: 'rollo_mindestHelligkeit',
                 id: label + '_mindestHelligkeit',
                 fieldLabel: 'Mindesthelligkeit',
                 value: 0,
                 minValue: 0,
-                maxValue: 65535
-            }]
-         },{
-            xtype: 'fieldset',
-            id: label + '_fieldset3',
-            title: 'Wohnzimmer Ost- und Südseite',
-            items: [{
+                maxValue: 32767
+            },{
                 xtype: 'checkboxfield',
                 name: 'rollo_wzOstOffenBisSchlafen',
                 id: label + '_wzOstOffenBisSchlafen',
@@ -437,6 +455,51 @@ App.rollo.createFormPanel2 = function(label) {
                 value: 0,
                 minValue: -20,
                 maxValue: 20
+            }]
+         },{
+            xtype: 'fieldset',
+            id: label + '_fieldset4',
+            title: 'Verschattung',
+            items: [{
+                xtype: 'numberfield',
+                name: 'rollo_helligkeitVerschattungEin',
+                id: label + '_helligkeitVerschattungEin',
+                fieldLabel: 'Helligkeit Verschatt. Ein',
+                value: 0,
+                minValue: 0,
+                maxValue: 32767
+            },{
+                xtype: 'numberfield',
+                name: 'rollo_helligkeitVerschattungAus',
+                id: label + '_helligkeitVerschattungAus',
+                fieldLabel: 'Helligkeit Verschatt. Aus',
+                value: 0,
+                minValue: 0,
+                maxValue: 32767
+            },{
+                xtype: 'numberfield',
+                name: 'rollo_zeitVerschattungEin',
+                id: label + '_zeitVerschattungEin',
+                fieldLabel: 'Verzögerung Verschatt. Ein',
+                value: 0,
+                minValue: 0,
+                maxValue: 120
+            },{
+                xtype: 'numberfield',
+                name: 'rollo_zeitVerschattungAus',
+                id: label + '_zeitVerschattungAus',
+                fieldLabel: 'Verzögerung Verschatt. Aus',
+                value: 0,
+                minValue: 0,
+                maxValue: 120
+            },{
+                xtype: 'numberfield',
+                name: 'rollo_aussenTempVerschattung',
+                id: label + '_aussenTempVerschattung',
+                fieldLabel: 'Min. Aussentemperatur',
+                value: 0,
+                minValue: 0,
+                maxValue: 30
             }]
          }]
     })
