@@ -259,7 +259,7 @@ App.rollo.createWindow2 = function(item){
         rollo_zeitVerschattungEin: 'TIME.#m',
         rollo_zeitVerschattungAus: 'TIME.#m',
         rollo_aussenTempVerschattung: 'INT1DP',
-        reserve: 'INT',
+        rollo_aussenTempVerschattung24: 'INT1DP',
         reserve: 'INT',
         reserve: 'INT'
     };
@@ -369,7 +369,11 @@ App.rollo.createWindow2 = function(item){
         }),
         tip13: Ext.create('Ext.tip.ToolTip', {
             target: label + '_aussenTempVerschattung',
-            html: 'Minimale Außentemperatur für die Freigabe der Verschattung.'
+            html: 'Aktuelle Außentemperatur, welche für die Freigabe der Verschattung erreicht werden muss.'
+        }),
+        tip14: Ext.create('Ext.tip.ToolTip', {
+            target: label + '_aussenTempVerschattung24',
+            html: 'Minimale Außentemperatur der letzten 24 Stunden, welche für die Freigabe der Verschattung erreicht werden muss.'
         })
     };
     
@@ -496,7 +500,15 @@ App.rollo.createFormPanel2 = function(label) {
                 xtype: 'numberfield',
                 name: 'rollo_aussenTempVerschattung',
                 id: label + '_aussenTempVerschattung',
-                fieldLabel: 'Min. Aussentemperatur',
+                fieldLabel: 'Aussentemperatur',
+                value: 0,
+                minValue: 0,
+                maxValue: 30
+            },{
+                xtype: 'numberfield',
+                name: 'rollo_aussenTempVerschattung24',
+                id: label + '_aussenTempVerschattung24',
+                fieldLabel: 'Min. Aussentemp. 24 Std. ',
                 value: 0,
                 minValue: 0,
                 maxValue: 30
