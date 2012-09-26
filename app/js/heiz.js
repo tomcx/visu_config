@@ -181,8 +181,8 @@ App.heiz.createWindow2 = function(item){
     var dataStruct = {
         heiz_frostSchutzTemp: 'INT1DP',
         heiz_ausMinTemp: 'INT1DP',
-        heiz_vorlaufMinTemp: 'INT1DP',
-        heiz_vorlaufMaxTemp: 'INT1DP',
+        //heiz_vorlaufMinTemp: 'INT1DP',
+        //heiz_vorlaufMaxTemp: 'INT1DP',
         heiz_aussenTempKeineAbsenk: 'INT1DP',
         heiz_mischerLaufZeit: 'TIME.#s',
         heiz_einschaltOffset: 'TIME.#m',
@@ -332,7 +332,7 @@ App.heiz.createFormPanel2 = function(label) {
                 value: 0,
                 minValue: 10,
                 maxValue: 20
-            },{
+            },/*{
                 xtype: 'numberfield',
                 name: 'heiz_vorlaufMinTemp',
                 id: label + '_vorlaufMinTemp',
@@ -348,7 +348,8 @@ App.heiz.createFormPanel2 = function(label) {
                 value: 0,
                 minValue: 20,
                 maxValue: 40
-            },{
+            },*/
+           {
                 xtype: 'numberfield',
                 name: 'heiz_aussenTempKeineAbsenk',
                 id: label + '_aussenTempKeineAbsenk',
