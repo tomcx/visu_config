@@ -181,13 +181,14 @@ App.heiz.createWindow2 = function(item){
     var dataStruct = {
         heiz_frostSchutzTemp: 'INT1DP',
         heiz_ausMinTemp: 'INT1DP',
-        //heiz_vorlaufMinTemp: 'INT1DP',
-        //heiz_vorlaufMaxTemp: 'INT1DP',
+        heiz_aussenTemp30: 'INT1DP',
+        heiz_aussenTemp40: 'INT1DP',
         heiz_aussenTempKeineAbsenk: 'INT1DP',
+        heiz_aussenTempMaxAusOffs:  'INT1DP',
+        heiz_reserve: 'INT',
         heiz_mischerLaufZeit: 'TIME.#s',
-        heiz_einschaltOffset: 'TIME.#m',
         heiz_ausschaltOffset: 'TIME.#m',
-        heiz_badHeizkoerpMaxZeitEin: 'TIME.#h',
+        heiz_badHeizkoerpMaxZeitEin: 'TIME.#h'
     };
     
     App.heiz[label].data = {};
@@ -262,26 +263,27 @@ App.heiz.createWindow2 = function(item){
             eingestellten Wert liegt. Diese Funktion ist auch bei ausgeschalteter FBH aktiv.'
         }),
         tip3: Ext.create('Ext.tip.ToolTip', {
-            target: label + '_vorlaufMinTemp',
-            html: 'Minimale Vorlauftemperatur.'
+            target: label + '_aussenTemp30',
+            html: 'Außentemperatur, über der die maximale Vorlauftemperatur 30°C betragen soll.'
         }),
         tip4: Ext.create('Ext.tip.ToolTip', {
-            target: label + '_vorlaufMaxTemp',
-            html: 'Maximale Vorlauftemperatur.'
+            target: label + '_aussenTemp40',
+            html: 'Außentemperatur,  unter der die maximale Vorlauftemperatur 40°C betragen soll.'
         }),
         tip5: Ext.create('Ext.tip.ToolTip', {
             target: label + '_mischerLaufZeit',
             html: 'Laufzeit den Vorlaufmischers in Sekunden.'
         }),
         tip6: Ext.create('Ext.tip.ToolTip', {
-            target: label + '_einschaltOffset',
-            html: 'Zeit in Minuten, welche die Heizung vor der geplanten Anwesenheit einer Person eingeschaltet werden soll \
-            (wegen der Trägheit der FBH).'
+            target: label + '_aussenTempMaxAusOffs',
+            html: 'Außentemperatur, für die der max. Ausschaltoffset gilt.'
         }),
         tip7: Ext.create('Ext.tip.ToolTip', {
             target: label + '_ausschaltOffset',
-            html: 'Zeit in Minuten, welche die Heizung vor der geplanten Abwesenheit aller Personen ausgeschaltet werden soll \
-            (wegen der Trägheit der FBH).'
+            html: 'Zeit in Minuten, welche die Heizung vor der geplanten Abwesenheit aller Personen ausgeschaltet werden soll. \
+            Der Wert ist der Maximalwert, welcher bei der für den max. Offset angegebenen \
+            Außentemperatur gilt. Bei niedrigeren Temperaturen wird die Zeit proportional verkürzt, der Nullpunkt liegt bei \
+            der für das Deaktivierung der Absenkung eingestellten Außentemperatur.'
         }),
         tip8: Ext.create('Ext.tip.ToolTip', {
             target: label + '_badHeizkoerpMaxZeitEin',
@@ -314,7 +316,7 @@ App.heiz.createFormPanel2 = function(label) {
         },
         items: [{
             xtype: 'fieldset',
-            id: label + '_fieldset',
+            //id: label + '_fieldset',
             title: 'Temperaturen',
             items: [{
                 xtype: 'numberfield',
@@ -332,24 +334,31 @@ App.heiz.createFormPanel2 = function(label) {
                 value: 0,
                 minValue: 10,
                 maxValue: 20
-            },/*{
+            },{
                 xtype: 'numberfield',
-                name: 'heiz_vorlaufMinTemp',
-                id: label + '_vorlaufMinTemp',
-                fieldLabel: 'Minimaltemperatur Vorlauf',
+                name: 'heiz_aussenTemp30',
+                id: label + '_aussenTemp30',
+                fieldLabel: 'Aussentemp. max. Vorlauf 30°C',
                 value: 0,
-                minValue: 0,
+                minValue: -30,
                 maxValue: 30
             },{
                 xtype: 'numberfield',
-                name: 'heiz_vorlaufMaxTemp',
-                id: label + '_vorlaufMaxTemp',
-                fieldLabel: 'Maximaltemperatur Vorlauf',
+                name: 'heiz_aussenTemp40',
+                id: label + '_aussenTemp40',
+                fieldLabel: 'Aussentemp. max. Vorlauf 40°C',
                 value: 0,
-                minValue: 20,
-                maxValue: 40
-            },*/
-           {
+                minValue: -30,
+                maxValue: 30
+            },{
+                xtype: 'numberfield',
+                name: 'heiz_aussenTempMaxAusOffs',
+                id: label + '_aussenTempMaxAusOffs',
+                fieldLabel: 'Aussentemp. f. max. Ausschaltoffset',
+                value: 0,
+                minValue: -30,
+                maxValue: 30
+            },{
                 xtype: 'numberfield',
                 name: 'heiz_aussenTempKeineAbsenk',
                 id: label + '_aussenTempKeineAbsenk',
@@ -360,7 +369,7 @@ App.heiz.createFormPanel2 = function(label) {
             }]  
         },{
             xtype: 'fieldset',
-            id: label + '_fieldset2',
+            //id: label + '_fieldset2',
             title: 'Zeiten',
             items: [{
                 xtype: 'numberfield',
@@ -372,17 +381,9 @@ App.heiz.createFormPanel2 = function(label) {
                 maxValue: 600
             },{
                 xtype: 'numberfield',
-                name: 'heiz_einschaltOffset',
-                id: label + '_einschaltOffset',
-                fieldLabel: 'Einschaltoffset',
-                value: 0,
-                minValue: 0,
-                maxValue: 180
-            },{
-                xtype: 'numberfield',
                 name: 'heiz_ausschaltOffset',
                 id: label + '_ausschaltOffset',
-                fieldLabel: 'Ausschaltoffset',
+                fieldLabel: 'Max. Ausschaltoffset',
                 value: 0,
                 minValue: 0,
                 maxValue: 180
@@ -396,7 +397,7 @@ App.heiz.createFormPanel2 = function(label) {
                 maxValue: 12
             }]
          }]
-    })
+    });
 };
 
  
