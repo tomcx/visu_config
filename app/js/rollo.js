@@ -397,7 +397,7 @@ App.rollo.createFormPanel2 = function(label) {
         },
         items: [{
             xtype: 'fieldset',
-            id: label + '_fieldset',
+            //id: label + '_fieldset',
             title: 'Nachtbetrieb',
             items: [{
                 xtype: 'numberfield',
@@ -462,7 +462,7 @@ App.rollo.createFormPanel2 = function(label) {
             }]
          },{
             xtype: 'fieldset',
-            id: label + '_fieldset4',
+            //id: label + '_fieldset4',
             title: 'Verschattung',
             items: [{
                 xtype: 'numberfield',
