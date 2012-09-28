@@ -338,7 +338,7 @@ App.heiz.createFormPanel2 = function(label) {
                 xtype: 'numberfield',
                 name: 'heiz_aussenTemp30',
                 id: label + '_aussenTemp30',
-                fieldLabel: 'Aussentemp. max. Vorlauf 30°C',
+                fieldLabel: 'Außentemp. max. Vorlauf 30°C',
                 value: 0,
                 minValue: -30,
                 maxValue: 30
@@ -346,7 +346,7 @@ App.heiz.createFormPanel2 = function(label) {
                 xtype: 'numberfield',
                 name: 'heiz_aussenTemp40',
                 id: label + '_aussenTemp40',
-                fieldLabel: 'Aussentemp. max. Vorlauf 40°C',
+                fieldLabel: 'Außentemp. max. Vorlauf 40°C',
                 value: 0,
                 minValue: -30,
                 maxValue: 30
@@ -354,7 +354,7 @@ App.heiz.createFormPanel2 = function(label) {
                 xtype: 'numberfield',
                 name: 'heiz_aussenTempMaxAusOffs',
                 id: label + '_aussenTempMaxAusOffs',
-                fieldLabel: 'Aussentemp. f. max. Ausschaltoffset',
+                fieldLabel: 'Außentemp. f. max. Ausschaltoffset',
                 value: 0,
                 minValue: -30,
                 maxValue: 30
@@ -366,6 +366,11 @@ App.heiz.createFormPanel2 = function(label) {
                 value: 0,
                 minValue: -30,
                 maxValue: 30
+            },{
+                xtype: 'displayfield',
+                name: 'heiz_text',
+                value: 'Hinweis: Für die Berechnung der Heizungsparamter wird anstelle der aktuellen Außentemperatur der Minimalwert der letzten 24 Stunden verwendet.',
+                //margin: '5 5 10 5'
             }]  
         },{
             xtype: 'fieldset',
