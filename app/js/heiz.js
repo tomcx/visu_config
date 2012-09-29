@@ -282,8 +282,9 @@ App.heiz.createWindow2 = function(item){
             target: label + '_ausschaltOffset',
             html: 'Zeit in Minuten, welche die Heizung vor der geplanten Abwesenheit aller Personen ausgeschaltet werden soll. \
             Der Wert ist der Maximalwert, welcher bei der für den max. Offset angegebenen \
-            Außentemperatur gilt. Bei niedrigeren Temperaturen wird die Zeit proportional verkürzt, der Nullpunkt liegt bei \
-            der für das Deaktivierung der Absenkung eingestellten Außentemperatur.'
+            Außentemperatur gilt. Bei niedrigeren Temperaturen wird die Zeit proportional verkürzt, bei \
+            der für das Deaktivierung der Absenkung eingestellten Außentemperatur liegt der Offset bei 0. Intern wird immer eine \
+            Trägheit von 30 Minuten hinzugerechnet.'
         }),
         tip8: Ext.create('Ext.tip.ToolTip', {
             target: label + '_badHeizkoerpMaxZeitEin',
