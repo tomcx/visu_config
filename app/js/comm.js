@@ -4,7 +4,7 @@
  */
 //Connector
 App.comm.cx = TAME.WebServiceClient.createClient({
-        serviceUrl: 'http://192.168.1.234/TcAdsWebService/TcAdsWebService.dll',
+        serviceUrl: '../../../TcAdsWebService/TcAdsWebService.dll',
         amsNetId: '5.2.52.54.1.1',
         dataAlign4: true,
 })
