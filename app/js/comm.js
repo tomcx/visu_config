@@ -26,7 +26,7 @@ App.comm.plcAddr = {
     rollo: {
         Allgem: 35000,
         KZ: 35044,
-        SZ: 350100,  //35073,
+        SZ: 35100,  //35073,
         WZOstLi: 35156,
         WZOstRe: 35212,
         WZSuedLi: 35268,   
