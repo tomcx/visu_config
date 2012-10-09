@@ -4,16 +4,16 @@
  */
 //Connector
 App.comm.cx = TAME.WebServiceClient.createClient({
-        serviceUrl: '../../../TcAdsWebService/TcAdsWebService.dll',
+        serviceUrl: window.location.href.replace(/visu_config\/index\.html/,'/TcAdsWebService/TcAdsWebService.dll'),
         amsNetId: '5.2.52.54.1.1',
-        dataAlign4: true,
-})
+        dataAlign4: true
+});
 
 //SPS-Variablenadressen
 App.comm.plcAddr = {
     lueft: {  
         BA: 45000,
-        WC: 45048,   //45046,
+        WC: 45048   //45046,
     },
     raum: {
         WZ: 37000,
