@@ -68,7 +68,7 @@ App.heiz.createWindow = function(item){
                 handler: App.heiz[label].readData
             }]
         }).show();
-    };
+    }
     
     //Tooltips
     var tooltips = {
@@ -165,7 +165,7 @@ App.heiz.createFormPanel = function(label) {
                 maxValue: 365
             }]  
         }]
-    })
+    });
 };
 
 
@@ -183,9 +183,9 @@ App.heiz.createWindow2 = function(item){
         heiz_ausMinTemp: 'INT1DP',
         heiz_aussenTemp30: 'INT1DP',
         heiz_aussenTemp40: 'INT1DP',
-        heiz_aussenTempKeineAbsenk: 'INT1DP',
+        heiz_aussenTempAbsenkSchlaf: 'INT1DP',
+        heiz_aussenTempAbsenkAbw: 'INT1DP',
         heiz_aussenTempMaxAusOffs:  'INT1DP',
-        heiz_reserve: 'INT',
         heiz_mischerLaufZeit: 'TIME.#s',
         heiz_ausschaltOffset: 'TIME.#m',
         heiz_badHeizkoerpMaxZeitEin: 'TIME.#h'
@@ -201,8 +201,8 @@ App.heiz.createWindow2 = function(item){
             addr: App.comm.plcAddr.heiz[label],
             debug: false,
             def: dataStruct,
-            jvar: 'App.heiz.' + label + '.data',
-        })
+            jvar: 'App.heiz.' + label + '.data'
+        });
     };
     
     
@@ -216,8 +216,8 @@ App.heiz.createWindow2 = function(item){
             },
             debug: false,
             def: dataStruct,
-            jvar: 'App.heiz.' + label + '.data',
-        })
+            jvar: 'App.heiz.' + label + '.data'
+        });
     };
 
 
@@ -242,7 +242,7 @@ App.heiz.createWindow2 = function(item){
                     handler: App.heiz[label].readData
                 }]
         }).show();
-    };
+    }
     
     //Tooltips
     var tooltips = {
@@ -292,8 +292,12 @@ App.heiz.createWindow2 = function(item){
             die Patrone ausgeschaltet.'
         }),
         tip9: Ext.create('Ext.tip.ToolTip', {
-            target: label + '_aussenTempKeineAbsenk',
-            html: 'Außentemperatur, unter der keine Absenkung erfolgt, da FBH zu wenig Reserven hat.'
+            target: label + '_aussenTempAbsenkAbw',
+            html: 'Außentemperatur, unter der bei Abwesenheit der Bewohner keine Absenkung erfolgt.'
+        }),
+        tip10: Ext.create('Ext.tip.ToolTip', {
+            target: label + '_aussenTempAbsenkSchlaf',
+            html: 'Außentemperatur, unter der während des Schlafens der Bewohner keine Absenkung erfolgt.'
         })
     };
     
@@ -361,16 +365,24 @@ App.heiz.createFormPanel2 = function(label) {
                 maxValue: 30
             },{
                 xtype: 'numberfield',
-                name: 'heiz_aussenTempKeineAbsenk',
-                id: label + '_aussenTempKeineAbsenk',
-                fieldLabel: 'Kein Absenkung unter',
+                name: 'heiz_aussenTempAbsenkSchlaf',
+                id: label + '_aussenTempAbsenkSchlaf',
+                fieldLabel: 'Außentemp. Absenk. Schlaf',
+                value: 0,
+                minValue: -30,
+                maxValue: 30
+            },{
+                xtype: 'numberfield',
+                name: 'heiz_aussenTempAbsenkAbw',
+                id: label + '_aussenTempAbsenkAbw',
+                fieldLabel: 'Außentemp. Absenk. Abw.',
                 value: 0,
                 minValue: -30,
                 maxValue: 30
             },{
                 xtype: 'displayfield',
                 name: 'heiz_text',
-                value: 'Hinweis: Für die Berechnung der Heizungsparamter wird anstelle der aktuellen Außentemperatur der Minimalwert der letzten 24 Stunden verwendet.',
+                value: 'Hinweis: Für die Berechnung der Heizungsparamter wird anstelle der aktuellen Außentemperatur der Minimalwert der letzten 24 Stunden verwendet.'
                 //margin: '5 5 10 5'
             }]  
         },{
