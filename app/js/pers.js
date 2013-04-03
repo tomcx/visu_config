@@ -15,12 +15,16 @@ App.pers.createWindow = function(item){
         pers_weckton: 'BYTE',
         pers_weckenLichtEin: 'TIME.#m',
         pers_bettseite: 'STRING.6',
+        pers_reserve1: 'BOOL',
+        pers_reserve2: 'BOOL',
+        pers_reserve3: 'BOOL',
+        pers_reserve4: 'BOOL',
         pers_startDatum: 'DATE',
         pers_schichtSystem: 'BYTE',
         pers_preset1: 'BYTE',
         pers_preset2: 'BYTE',
         pers_preset3: 'BYTE',
-        pers_preset4: 'BYTE',
+        pers_preset4: 'BYTE'
     };
     
     App.pers[label].data = {};

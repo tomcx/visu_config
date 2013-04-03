@@ -183,11 +183,11 @@ App.heiz.createWindow2 = function(item){
         heiz_ausMinTemp: 'INT1DP',
         heiz_aussenTemp30: 'INT1DP',
         heiz_aussenTemp40: 'INT1DP',
-        heiz_aussenTempAbsenkSchlaf: 'INT1DP',
-        heiz_aussenTempAbsenkAbw: 'INT1DP',
+        heiz_aussenTempKeinAusOffs: 'INT1DP',
         heiz_aussenTempMaxAusOffs:  'INT1DP',
         heiz_mischerLaufZeit: 'TIME.#s',
         heiz_ausschaltOffset: 'TIME.#m',
+        heiz_einschaltOffset10Grad: 'TIME.#m',
         heiz_badHeizkoerpMaxZeitEin: 'TIME.#h'
     };
     
@@ -292,12 +292,12 @@ App.heiz.createWindow2 = function(item){
             die Patrone ausgeschaltet.'
         }),
         tip9: Ext.create('Ext.tip.ToolTip', {
-            target: label + '_aussenTempAbsenkAbw',
+            target: label + '_aussenTempKeinAusOffs',
             html: 'Außentemperatur, unter der bei Abwesenheit der Bewohner keine Absenkung erfolgt.'
         }),
         tip10: Ext.create('Ext.tip.ToolTip', {
-            target: label + '_aussenTempAbsenkSchlaf',
-            html: 'Außentemperatur, unter der während des Schlafens der Bewohner keine Absenkung erfolgt.'
+            target: label + '_einschaltOffset10Grad',
+            html: 'Offset, welcher bei 10 Grad Außentemp. zur Aufheizzeit hinzugerechnet/abgezogen wird. Wird proportional berechnet.'
         })
     };
     
@@ -365,17 +365,9 @@ App.heiz.createFormPanel2 = function(label) {
                 maxValue: 30
             },{
                 xtype: 'numberfield',
-                name: 'heiz_aussenTempAbsenkSchlaf',
-                id: label + '_aussenTempAbsenkSchlaf',
-                fieldLabel: 'Außentemp. Absenk. Schlaf',
-                value: 0,
-                minValue: -30,
-                maxValue: 30
-            },{
-                xtype: 'numberfield',
-                name: 'heiz_aussenTempAbsenkAbw',
-                id: label + '_aussenTempAbsenkAbw',
-                fieldLabel: 'Außentemp. Absenk. Abw.',
+                name: 'heiz_aussenTempKeinAusOffs',
+                id: label + '_aussenTempKeinAusOffs',
+                fieldLabel: 'Außentemp. kein Auschaltoffset',
                 value: 0,
                 minValue: -30,
                 maxValue: 30
@@ -402,6 +394,14 @@ App.heiz.createFormPanel2 = function(label) {
                 name: 'heiz_ausschaltOffset',
                 id: label + '_ausschaltOffset',
                 fieldLabel: 'Max. Ausschaltoffset',
+                value: 0,
+                minValue: 0,
+                maxValue: 180
+            },{
+                xtype: 'numberfield',
+                name: 'heiz_einschaltOffset10Grad',
+                id: label + '_einschaltOffset10Grad',
+                fieldLabel: 'Einschaltoffset 10 Grad Außentemp.',
                 value: 0,
                 minValue: 0,
                 maxValue: 180

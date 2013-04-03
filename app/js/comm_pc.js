@@ -56,9 +56,9 @@ App.comm.plcAddr = {
     },
     pers: {
         Pers1: 20000,
-        Pers2: 21357,
-        Pers3: 22714,
-        Pers4: 24071
+        Pers2: 21361,
+        Pers3: 22722,
+        Pers4: 24083
         
     },
     pers_tpres: {
