@@ -82,8 +82,8 @@ App.comm.plcAddr = {
         WPres6: 32040,
         WPres7: 32348,
         WPres8: 32656,
-        WPres9: 33272,
-        WPres10: 33580
+        WPres9: 32964,
+        WPres10: 33272
     },
     licht: {
         namen: 37500,
